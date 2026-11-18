@@ -117,5 +117,7 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 .replay-note{min-height:1.5em}
 .queens-creators{margin-top:17px}
 @media(max-width:740px){.queens-play{grid-template-columns:1fr}.board-panel{width:min(100%,500px);margin-inline:auto}.queens-top{align-items:start}#queen-progress{padding:0}}
-details.queens-creators>summary{cursor:pointer;font-weight:750;color:var(--deep)}
-details.queens-creators>p{margin-top:10px}
+.board-square.movable{cursor:grab;touch-action:none}
+.board-square.dragging-source .chess-piece{opacity:.23}
+.chess-ghost{position:fixed;z-index:20;transform:translate(-50%,-50%);pointer-events:none}
+.board-square.legal:not(.occupied){cursor:pointer}

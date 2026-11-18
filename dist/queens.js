@@ -1,5 +1,5 @@
 import {strategies,puzzles} from './puzzle-data.js';
-import {position,nameOf,white,legal,play,decode,encode,inCheck,notation} from './chess.js';
+import {position,nameOf,white,legal,play,decode,encode,inCheck,notation,squareOf} from './chess.js';
 
 const $=id=>document.getElementById('queen-'+id);
 const board=$('board');
@@ -15,6 +15,11 @@ let replay=null;
 let ply=0;
 let last=null;
 let moveOptions=[];
+let continuation=null;
+let replyTimer=null;
+let retryPosition=null;
+let drag=null;
+let suppressClick=false;
 const squares=[];
 
 function addOption(select,text,value){
@@ -33,6 +38,7 @@ function coordinate(css,text){
 for(let i=0;i<64;i++){
   const button=document.createElement('button');
   button.type='button';
+  button.dataset.square=i;
   const piece=document.createElement('span');
   piece.setAttribute('aria-hidden','true');
   button.append(piece);
@@ -69,6 +75,8 @@ function draw(){
     if(last&&(last.from===i||last.to===i))classes.push('last');
     if(available.has(i))classes.push('legal');
     if(value)classes.push('occupied');
+    if(value&&white(value)&&moveOptions.some(move=>move.from===i))classes.push('movable');
+    if(drag?.ghost&&drag.from===i)classes.push('dragging-source');
     button.className=classes.join(' ');
     button.tabIndex=i===cursor?0:-1;
     button.setAttribute('aria-pressed',String(i===selected));
@@ -77,12 +85,17 @@ function draw(){
     piece.className='chess-piece '+side;
     piece.textContent=value?glyphs[value.toUpperCase()]:'';
   });
-  $('turn').textContent=replay?'Replay · '+ply+' of '+replay.moves.length+' moves':'White to move · Select a piece, then its destination.';
+  let turn='White to move · Drag a piece or select it and its destination.';
+  if(continuation) turn='White to move · Find the finishing move.';
+  if(retryPosition) turn='Review your move, then undo it to try again.';
+  if(replyTimer!==null) turn='Black to move…';
+  if(replay) turn='Replay · '+ply+' of '+replay.moves.length+' moves';
+  $('turn').textContent=turn;
 }
 
 function chooseSquare(i){
   setCursor(i);
-  if(replay)return;
+  if(replay||replyTimer!==null||retryPosition)return;
   const value=snapshot[i];
   if(value&&white(value)){
     selected=selected===i?null:i;
@@ -99,30 +112,154 @@ function chooseSquare(i){
     $('status').textContent='That move is unavailable. The dots show legal destinations.';
     return;
   }
-  const puzzle=puzzles[active], uci=encode(move);
+  if(continuation) finishMove(move);
+  else firstMove(move);
+}
+
+function place(move){
+  snapshot=play(snapshot,move);
+  last=move;
+  selected=null;
+}
+
+function firstMove(move){
+  const puzzle=puzzles[active];
+  const uci=encode(move);
   const line=puzzle.lines.find(option=>option.moves[0]===uci);
-  if(line){
-    solved.add(active);
-    updateProgress();
-    showReplay(line,'Solved. Step through the line to see why it works.',1);
+  if(!line){
+    const next=play(snapshot,move);
+    let message='That move is legal. Try a move that meets the puzzle’s goal.';
+    if(!inCheck(next,false)&&legal(next,false).length===0){
+      message='Stalemate. Black has no legal move and is out of check.';
+    } else if(puzzle.otherWins?.includes(uci)){
+      message='That also forces mate. Try a line where Black takes the queen.';
+    }
+    showMistake(move,message);
     return;
   }
-  const next=play(start,move);
-  if(!inCheck(next,false)&&legal(next,false).length===0){
-    $('status').textContent='Stalemate. Black has no legal move and is out of check. Try again.';
-  } else if(puzzle.otherWins?.includes(uci)){
-    $('status').textContent='That also forces mate. For this lesson, find a line where Black takes the queen.';
-  } else {
-    $('status').textContent='That move is legal. Look for a move that meets this puzzle’s goal.';
-  }
-  selected=null;
+  place(move);
+  if(line.moves.length===1){complete(line);return;}
+  moveOptions=[];
+  $('hint').disabled=true;
+  $('hint-text').hidden=true;
+  $('hint').textContent='Show hint';
+  $('hint').setAttribute('aria-expanded','false');
+  $('solution').hidden=true;
+  $('status').textContent='Good first move. Black is preparing its reply.';
+  replyTimer=window.setTimeout(()=>{
+    replyTimer=null;
+    continuation=line;
+    place(decode(line.moves[1]));
+    moveOptions=legal(snapshot,true);
+    $('hint').disabled=false;
+    $('hint-text').textContent=line.target?'Can your queen capture the piece on '+line.target+'?':'Look for a checking move that leaves Black no legal reply.';
+    $('status').textContent='Black replied '+notation(play(start,move),line.moves[1],false)+'. Your turn.';
+    draw();
+  },450);
   draw();
 }
+
+function finishMove(move){
+  const next=play(snapshot,move);
+  const replies=legal(next,false);
+  const mate=inCheck(next,false)&&replies.length===0;
+  const target=continuation.target ? squareOf(continuation.target) : null;
+  const winsTarget=target===move.to&&snapshot[move.from]==='Q'&&Boolean(snapshot[target])&&
+    !replies.some(reply=>reply.to===target)&&(mate||replies.length>0);
+  if(continuation.target ? !winsTarget : !mate){
+    const message=!replies.length&&!inCheck(next,false)?'That leaves Black stalemated.':
+      continuation.target?'Look for the queen capture that wins the forked piece.':'Black still has a legal reply. Find checkmate.';
+    showMistake(move,message);
+    return;
+  }
+  place(move);
+  complete({...continuation,moves:[...continuation.moves.slice(0,2),encode(move)]});
+}
+
+function showMistake(move,message){
+  retryPosition={board:snapshot,last};
+  place(move);
+  moveOptions=[];
+  $('retry').hidden=false;
+  $('status').textContent=message+' Use Undo move to try again.';
+  draw();
+}
+
+function undoMove(){
+  snapshot=retryPosition.board;
+  last=retryPosition.last;
+  retryPosition=null;
+  moveOptions=legal(snapshot,true);
+  $('retry').hidden=true;
+  $('status').textContent='Move undone. Try again.';
+  draw();
+  squares[cursor].button.focus();
+}
+
+function complete(line){
+  solved.add(active);
+  updateProgress();
+  showReplay(line,'Solved. Use Previous move to review how the position unfolded.',line.moves.length);
+}
+
+function finishDrag(event,cancelled=false){
+  if(!drag||event.pointerId!==drag.id)return;
+  const current=drag;
+  drag=null;
+  if(!current.ghost)return;
+  current.ghost.remove();
+  suppressClick=true;
+  const target=document.elementFromPoint(event.clientX,event.clientY)?.closest('[data-square]');
+  if(!cancelled&&target&&board.contains(target)&&Number(target.dataset.square)!==current.from){
+    chooseSquare(Number(target.dataset.square));
+  }
+  draw();
+}
+board.addEventListener('pointerdown',event=>{
+  if(!event.isPrimary||event.button!==0)return;
+  suppressClick=false;
+  const source=event.target.closest('.movable');
+  if(!source||!board.contains(source))return;
+  drag={id:event.pointerId,from:Number(source.dataset.square),x:event.clientX,y:event.clientY,ghost:null};
+});
+board.addEventListener('pointermove',event=>{
+  if(!drag||event.pointerId!==drag.id)return;
+  if(!drag.ghost&&Math.hypot(event.clientX-drag.x,event.clientY-drag.y)>5){
+    const source=squares[drag.from];
+    drag.ghost=source.piece.cloneNode(true);
+    drag.ghost.classList.add('chess-ghost');
+    drag.ghost.style.fontSize=window.getComputedStyle(source.piece).fontSize;
+    document.body.append(drag.ghost);
+    board.setPointerCapture(event.pointerId);
+    selected=drag.from;
+    draw();
+  }
+  if(drag.ghost){
+    drag.ghost.style.left=event.clientX+'px';
+    drag.ghost.style.top=event.clientY+'px';
+  }
+});
+window.addEventListener('pointerup',event=>finishDrag(event));
+window.addEventListener('pointercancel',event=>finishDrag(event,true));
+board.addEventListener('click',event=>{
+  if(suppressClick&&event.detail>0){
+    suppressClick=false;
+    event.stopImmediatePropagation();
+  }
+},true);
 
 function updateProgress(){
   $('progress').textContent=solved.size+' of '+puzzles.length+' solved';
 }
 function resetBoard(){
+  window.clearTimeout(replyTimer);
+  replyTimer=null;
+  continuation=null;
+  retryPosition=null;
+  if(drag?.ghost)drag.ghost.remove();
+  drag=null;
+  $('retry').hidden=true;
+  $('hint-text').textContent=puzzles[active].hint;
   start=position(puzzles[active].fen);
   snapshot=start;
   replay=null;
@@ -158,6 +295,9 @@ function openPuzzle(index){
 }
 
 function showReplay(line,message,step){
+  if(replyTimer!==null)return;
+  retryPosition=null;
+  $('retry').hidden=true;
   replay=line;
   selected=null;
   moveOptions=[];
@@ -221,8 +361,9 @@ $('hint').addEventListener('click',()=>{
   $('hint').setAttribute('aria-expanded',String(show));
   if(show)$('solution').hidden=false;
 });
-$('solution').addEventListener('click',()=>showReplay(puzzles[active].lines[0],'Solution shown. You can reset the board and try it yourself.',0));
+$('solution').addEventListener('click',()=>showReplay(continuation??puzzles[active].lines[0],'Solution shown. You can reset the board and try it yourself.',0));
 $('reset').addEventListener('click',resetBoard);
+$('retry').addEventListener('click',undoMove);
 $('prev').addEventListener('click',()=>setPly(ply-1));
 $('next').addEventListener('click',()=>setPly(ply+1));
 $('next-puzzle').addEventListener('click',()=>{

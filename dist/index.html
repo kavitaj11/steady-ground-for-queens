@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script><script type="module" src="queens.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=queens-live-play"><script type="module" src="app.js"></script><script type="module" src="queens.js?v=live-play"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -102,7 +102,7 @@
       <div class="queens-play">
         <div class="board-panel">
           <div class="board-grid" id="queen-board" role="group" aria-label="Chessboard, White at the bottom"></div>
-          <p class="board-caption" id="queen-turn">White to move</p>
+          <p class="board-caption" id="queen-turn" aria-live="polite">White to move</p>
         </div>
         <div class="queen-instructions">
           <p class="overline" id="queen-strategy"></p>
@@ -112,6 +112,7 @@
           <p class="queen-feedback" id="queen-status" role="status"></p>
           <div class="queen-actions">
             <button class="primary" id="queen-hint" type="button">Show hint</button>
+            <button class="secondary" id="queen-retry" type="button" hidden>Undo move</button>
             <button class="secondary" id="queen-reset" type="button">Reset board</button>
             <button class="secondary" id="queen-solution" type="button" hidden>Show solution</button>
           </div>
@@ -130,11 +131,6 @@
         </div>
       </div>
     </div>
-    <details class="reading-card queens-creators">
-      <summary>Bonus logic puzzle · Three books on a shelf</summary>
-      <p>Place <em>Awareness</em>, <em>Entanglement</em>, and <em>Transformation</em> in a row. <em>Awareness</em> is to the left of <em>Transformation</em>, and <em>Entanglement</em> is immediately to the left of <em>Awareness</em>. What is the order?</p>
-      <details class="puzzle-answer"><summary>Show solution</summary><p><strong>Entanglement, Awareness, Transformation.</strong> The first two are next to each other, and <em>Transformation</em> comes after <em>Awareness</em>.</p></details>
-    </details>
     <section class="reading-card queens-creators" aria-labelledby="queens-creator-heading">
       <h2 id="queens-creator-heading">How women could earn through Queens’ Gambits</h2>
       <p>The 12-puzzle starter pack is free. For future themed packs, the plan is to pay women chess coaches and puzzle authors to compose and review puzzles, then share revenue from advanced pack sales with their creators. Paid live puzzle-solving workshops could give coaches another way to earn.</p>
