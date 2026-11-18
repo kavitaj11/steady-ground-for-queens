@@ -85,7 +85,7 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 #queen-progress{margin-left:auto;color:var(--muted);font-size:.83rem;padding-bottom:6px}
 .queens-play{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,3vw,34px);align-items:start}
 .board-panel{max-width:100%;min-width:0}
-.board-grid{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:2px solid #5e4d72;border-radius:8px;overflow:hidden;container-type:inline-size}
+.board-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));width:100%;aspect-ratio:1;border:2px solid #5e4d72;border-radius:8px;overflow:hidden;container-type:inline-size}
 .board-square{position:relative;display:grid;place-items:center;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:#ede5db;color:#251c2e;touch-action:manipulation}
 .board-square.dark{background:#a991b2}
 .board-square.last{box-shadow:inset 0 0 0 3px #b28337}
