@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script><script type="module" src="queens.js"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -65,7 +65,7 @@
     <div class="page-intro"><h1 tabindex="-1">Reflections</h1><p>Consider a challenge you’re facing, work through a puzzle, or sit with a teaching from the Bhagavad Gītā.</p></div>
     <nav class="explore-grid reflection-resources" aria-label="Reflection resources">
       <a class="explore-card" href="#challenges"><span class="explore-icon motherhood-icon" aria-hidden="true">◆</span><span><strong>Preparing for Challenges in Life</strong><small>Consider what you can do, what you need, and who can help.</small></span></a>
-      <a class="explore-card" href="#puzzles"><span class="explore-icon career-icon" aria-hidden="true">♕</span><span><strong>Puzzles for Mental Exercise</strong><small>Try a chess or logic challenge at your own pace.</small></span></a>
+      <a class="explore-card" href="#puzzles"><span class="explore-icon career-icon" aria-hidden="true">♕</span><span><strong>Puzzles for Mental Exercise</strong><small>Play 12 chess puzzles in Queens’ Gambits.</small></span></a>
       <a class="explore-card" href="#gita"><span class="explore-icon spirituality-icon" aria-hidden="true">✧</span><span><strong>Decoded Gita Wisdom</strong><small>Explore all 18 chapters through diagnosis, correction, and stabilization.</small></span></a>
     </nav>
   </section>
@@ -87,13 +87,58 @@
     </div>
   </section>
   <section id="puzzles" class="view" hidden>
-    <div class="page-intro"><a class="back-link" href="#reflection">← Reflections</a><h1 tabindex="-1">Puzzles for Mental Exercise</h1><p>Take your time, then open each solution to check your reasoning.</p></div>
-    <div class="resource-grid">
-      <article class="reading-card"><h2>The queen’s finishing move</h2><p>White king on f6, white queen on g6, black king on h8. White to move. Can you checkmate in one move?</p>
-        <details class="puzzle-answer"><summary>Show solution</summary><p><strong>Qg7#.</strong> The queen checks the king and covers g8 and h7. The white king protects g7, so the black king cannot capture the queen.</p></details></article>
-      <article class="reading-card"><h2>Three books on a shelf</h2><p>Place <em>Awareness</em>, <em>Entanglement</em>, and <em>Transformation</em> in a row. <em>Awareness</em> is to the left of <em>Transformation</em>, and <em>Entanglement</em> is immediately to the left of <em>Awareness</em>. What is the order?</p>
-        <details class="puzzle-answer"><summary>Show solution</summary><p><strong>Entanglement, Awareness, Transformation.</strong> The first two must be next to each other, and <em>Transformation</em> must come after <em>Awareness</em>.</p></details></article>
+    <div class="page-intro queens-intro">
+      <a class="back-link" href="#reflection">← Reflections</a>
+      <h1 tabindex="-1">Queens’ Gambits</h1>
+      <p>12 chess puzzles from AI Quality Queens. Learn how the queen works with the rest of the board, one move at a time.</p>
     </div>
+    <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
+    <div class="queens-game">
+      <div class="queens-top">
+        <label for="queen-level">Strategy <select id="queen-level"></select></label>
+        <label for="queen-puzzle">Puzzle <select id="queen-puzzle"></select></label>
+        <p id="queen-progress" aria-live="polite"></p>
+      </div>
+      <div class="queens-play">
+        <div class="board-panel">
+          <div class="board-grid" id="queen-board" role="group" aria-label="Chessboard, White at the bottom"></div>
+          <p class="board-caption" id="queen-turn">White to move</p>
+        </div>
+        <div class="queen-instructions">
+          <p class="overline" id="queen-strategy"></p>
+          <h2 id="queen-title"></h2>
+          <p class="strategy-goal" id="queen-lesson"></p>
+          <p id="queen-objective"></p>
+          <p class="queen-feedback" id="queen-status" role="status"></p>
+          <div class="queen-actions">
+            <button class="primary" id="queen-hint" type="button">Show hint</button>
+            <button class="secondary" id="queen-reset" type="button">Reset board</button>
+            <button class="secondary" id="queen-solution" type="button" hidden>Show solution</button>
+          </div>
+          <p id="queen-hint-text" class="queen-feedback" role="status" hidden></p>
+          <section class="queen-replay" id="queen-replay" aria-labelledby="queen-replay-title" hidden>
+            <h3 id="queen-replay-title">Solution replay</h3>
+            <p id="queen-explanation"></p>
+            <ol id="queen-moves"></ol>
+            <div class="queen-actions">
+              <button class="secondary" id="queen-prev" type="button">Previous move</button>
+              <button class="secondary" id="queen-next" type="button">Next move</button>
+            </div>
+            <p class="replay-note" id="queen-replay-note" aria-live="polite"></p>
+            <button class="primary" id="queen-next-puzzle" type="button">Next puzzle</button>
+          </section>
+        </div>
+      </div>
+    </div>
+    <details class="reading-card queens-creators">
+      <summary>Bonus logic puzzle · Three books on a shelf</summary>
+      <p>Place <em>Awareness</em>, <em>Entanglement</em>, and <em>Transformation</em> in a row. <em>Awareness</em> is to the left of <em>Transformation</em>, and <em>Entanglement</em> is immediately to the left of <em>Awareness</em>. What is the order?</p>
+      <details class="puzzle-answer"><summary>Show solution</summary><p><strong>Entanglement, Awareness, Transformation.</strong> The first two are next to each other, and <em>Transformation</em> comes after <em>Awareness</em>.</p></details>
+    </details>
+    <section class="reading-card queens-creators" aria-labelledby="queens-creator-heading">
+      <h2 id="queens-creator-heading">How women could earn through Queens’ Gambits</h2>
+      <p>The 12-puzzle starter pack is free. For future themed packs, the plan is to pay women chess coaches and puzzle authors to compose and review puzzles, then share revenue from advanced pack sales with their creators. Paid live puzzle-solving workshops could give coaches another way to earn.</p>
+    </section>
   </section>
   <section id="gita" class="view" hidden>
     <div class="page-intro">
