@@ -302,3 +302,28 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
   .puzzle-card { min-height: 134px; }
   .maze-cell { border-width: 0; }
 }
+#maze-board { touch-action: none; }
+#maze-board .maze-player { cursor: grab; }
+#maze-board.maze-dragging, #maze-board.maze-dragging .maze-cell { cursor: grabbing; }
+.maze-solution {
+  border-top: 1px solid var(--line);
+  margin-top: 22px;
+  padding-top: 14px;
+}
+.maze-solution summary {
+  width: fit-content;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--deep);
+  font-weight: 700;
+  cursor: pointer;
+}
+.maze-solution[open] summary { background: #f3ebf8; }
+.maze-solution-content { margin-top: 14px; }
+#maze-solution-board .maze-cell { cursor: default; }
+#maze-solution-board .maze-route { background: #bfe5d2; }
+.maze-solution-slider { display: block; color: var(--deep); font-size: .88rem; font-weight: 650; margin-top: 12px; }
+.maze-solution-slider input { display: block; width: 100%; accent-color: var(--deep); }
+.maze-methods { margin-top: 16px; }
+.maze-methods p { margin-top: 10px; }

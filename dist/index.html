@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=advanced-puzzles"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js?v=advanced-puzzles"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=maze-drag"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js?v=maze-drag"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -188,7 +188,7 @@
     <div class="page-intro">
       <a class="back-link" href="#puzzles">← All puzzles</a>
       <h1 tabindex="-1">Maze Explorer</h1>
-      <p>Visit every checkpoint in order to unlock the exit. Tap a neighboring square, use the direction buttons, or focus the maze and press the arrow keys.</p>
+      <p>Drag the purple marker through the corridors without lifting. Visit every checkpoint in order to unlock the exit. You can also tap a neighboring square or use the direction buttons or arrow keys.</p>
     </div>
     <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
     <section class="reading-card puzzle-panel maze-panel" aria-label="Play a maze">
@@ -212,6 +212,27 @@
           <p class="puzzle-message" id="maze-message" role="status"></p>
         </div>
       </div>
+      <details class="maze-solution" id="maze-solution">
+        <summary>Solution</summary>
+        <div class="maze-play maze-solution-content">
+          <div id="maze-solution-board" class="maze-board" role="img" aria-label="Shortest route through the selected maze"></div>
+          <div>
+            <p>The green squares mark a shortest route. Use the slider or step through it to see the order, including where the route doubles back.</p>
+            <label class="maze-solution-slider">Solution step <input type="range" id="maze-solution-step" min="0" value="0"></label>
+            <div class="puzzle-actions">
+              <button class="secondary" type="button" id="maze-solution-prev">Previous step</button>
+              <button class="secondary" type="button" id="maze-solution-next">Next step</button>
+            </div>
+            <p class="puzzle-message" id="maze-solution-status" role="status"></p>
+          </div>
+        </div>
+      </details>
+    </section>
+    <section class="reading-card puzzle-panel maze-panel maze-methods" aria-labelledby="maze-methods-title">
+      <h2 id="maze-methods-title">How algorithms solve mazes</h2>
+      <p><strong>Breadth-first search (BFS)</strong> is what the Solution tab uses. It explores every reachable state one move at a time. A state includes both your square and how many checkpoints you’ve collected. That matters because revisiting the same square after collecting a checkpoint can open a route that was previously blocked. With each move costing one, the first valid route to the exit is a shortest route.</p>
+      <p><strong>A*</strong> also searches the maze, but it prioritizes routes using the moves already taken and an estimate of the moves still needed. One estimate adds the horizontal and vertical distances to the remaining checkpoints and then to the exit, ignoring walls. Because this estimate never overstates the remaining cost, A* can still find a shortest route.</p>
+      <p><strong>Reinforcement learning</strong> can learn a policy through repeated attempts. A Q-learning agent tries moves, records which actions pay off at each state, and updates those estimates as it explores. A reward for reaching the unlocked exit and a small cost per move encourage shorter routes. The learned policy depends on training and can take a longer route, especially in a maze it has never seen.</p>
     </section>
   </section>
   <section id="pattern-puzzles" class="view" hidden>
