@@ -181,22 +181,65 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 .puzzle-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .puzzle-panel [data-answer-form] { margin-top: 12px; }
 .puzzle-panel .puzzle-message:not(:empty) { margin-top: 12px; color: var(--deep); }
-.pattern-sequence, .pattern-choices > div { display: flex; flex-wrap: wrap; gap: 6px; }
-.pattern-sequence { margin-top: 10px; }
-.pattern-sequence > span, .pattern-choices label {
+.puzzle-prompt { color: var(--muted); line-height: 1.5; margin-top: 6px; }
+.puzzle-figure:not(:empty) { margin-top: 14px; }
+.pattern-sequence, .pattern-choices > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pattern-sequence { list-style: none; padding: 0; margin: 0; }
+.pattern-sequence li {
+  min-width: 32px;
+  text-align: center;
   padding: 5px 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #f6eff9;
   color: var(--deep);
-  font: 650 .9rem/1.4 system-ui, sans-serif;
+  font-weight: 700;
 }
-.pattern-sequence > span { min-width: 28px; text-align: center; }
-.pattern-choices label { display: inline-flex; align-items: center; gap: 5px; min-height: 38px; cursor: pointer; }
-.pattern-choices input { accent-color: var(--deep); }
+.pattern-table { width: min(100%, 440px); border-collapse: collapse; text-align: center; }
+.pattern-table th, .pattern-table td {
+  padding: 5px 4px;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.pattern-table th { font-size: .78rem; color: var(--muted); }
+.pattern-table td { font-weight: 700; }
+.pattern-board {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  width: 50px;
+  vertical-align: middle;
+}
+.pattern-board > span {
+  aspect-ratio: 1;
+  border: 1px solid #d9c8e7;
+  border-radius: 2px;
+  background: #f7f0fa;
+}
+.pattern-board > .pattern-cell-filled { background: #694483; border-color: #694483; }
+.pattern-choices legend { margin-bottom: 6px; font-weight: 650; font-size: .88rem; }
+.pattern-choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--deep);
+  font-weight: 700;
+  cursor: pointer;
+}
+.pattern-choices label:has(input:checked) { border-color: #694483; background: #f6eff9; }
+.pattern-choices input { margin: 0; accent-color: var(--deep); }
+.maze-panel { max-width: 870px; }
 .maze-play {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
   align-items: start;
   gap: 16px;
 }
@@ -204,7 +247,7 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
   display: grid;
   grid-template-columns: repeat(var(--maze-size), minmax(0, 1fr));
   width: 100%;
-  max-width: 380px;
+  max-width: 540px;
   padding: 2px;
   border: 2px solid #503b79;
   border-radius: 8px;
@@ -218,7 +261,7 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
   border: 1px solid #e8dcef;
   background: #fcf8ff;
   color: #382453;
-  font-size: clamp(.68rem, 2.8vw, 1rem);
+  font-size: clamp(.63rem, 2vw, .86rem);
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
@@ -228,12 +271,14 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 .maze-cell.maze-wall { border-color: #503b79; background: #503b79; cursor: default; }
 .maze-cell.maze-visited { background: #e6d8f1; }
 .maze-cell.maze-goal { background: #d7eee1; color: #244f41; }
+.maze-cell.maze-checkpoint { background: #f9e7c0; color: #673d14; }
+.maze-cell.maze-collected { background: #f3ede4; color: #675945; }
 .maze-player::after {
   position: absolute;
-  inset: 15%;
+  inset: 16%;
   border-radius: 50%;
   background: #714694;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   content: '';
 }
 .maze-moves { font-weight: 700; }
@@ -255,4 +300,5 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 @media (max-width: 600px) {
   .puzzle-gallery, .maze-play { grid-template-columns: 1fr; }
   .puzzle-card { min-height: 134px; }
+  .maze-cell { border-width: 0; }
 }

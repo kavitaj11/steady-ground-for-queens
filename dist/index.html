@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=puzzle-gallery"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=advanced-puzzles"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js?v=advanced-puzzles"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -99,15 +99,15 @@
       </a>
       <a class="puzzle-card" href="#math-puzzles">
         <span class="puzzle-art puzzle-art-math" aria-hidden="true">+</span>
-        <span class="puzzle-card-copy"><strong>Math Puzzles</strong><small>Solve four number challenges using arithmetic and deduction.</small><span class="puzzle-play-link">Solve math puzzles <span aria-hidden="true">→</span></span></span>
+        <span class="puzzle-card-copy"><strong>Math Puzzles</strong><small>Work through five problems in probability, constraints, and combinatorics.</small><span class="puzzle-play-link">Solve math puzzles <span aria-hidden="true">→</span></span></span>
       </a>
       <a class="puzzle-card" href="#maze-puzzles">
         <span class="puzzle-art puzzle-art-maze" aria-hidden="true">↱</span>
-        <span class="puzzle-card-copy"><strong>Maze Explorer</strong><small>Find a route through three mazes, from an easy trail to a longer labyrinth.</small><span class="puzzle-play-link">Explore mazes <span aria-hidden="true">→</span></span></span>
+        <span class="puzzle-card-copy"><strong>Maze Explorer</strong><small>Collect ordered checkpoints in three looping mazes and try to match the fewest possible moves.</small><span class="puzzle-play-link">Explore mazes <span aria-hidden="true">→</span></span></span>
       </a>
       <a class="puzzle-card" href="#pattern-puzzles">
         <span class="puzzle-art puzzle-art-pattern" aria-hidden="true">◆ ◇ ◆</span>
-        <span class="puzzle-card-copy"><strong>Pattern Puzzles</strong><small>Predict the next shape in four visual sequences.</small><span class="puzzle-play-link">Find the pattern <span aria-hidden="true">→</span></span></span>
+        <span class="puzzle-card-copy"><strong>Pattern Puzzles</strong><small>Solve interwoven number sequences and infer how grids rotate, overlap, and reflect.</small><span class="puzzle-play-link">Find the pattern <span aria-hidden="true">→</span></span></span>
       </a>
     </nav>
   </section>
@@ -165,12 +165,13 @@
     <div class="page-intro">
       <a class="back-link" href="#puzzles">← All puzzles</a>
       <h1 tabindex="-1">Math Puzzles</h1>
-      <p>Work out the number, then check your reasoning.</p>
+      <p>Solve problems with overlapping constraints, conditional probability, and more than one step.</p>
     </div>
     <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
     <section class="reading-card puzzle-panel" data-quiz="math" aria-labelledby="math-question">
       <label class="puzzle-picker">Puzzle <select data-pick></select></label>
       <h2 id="math-question" data-question tabindex="-1"></h2>
+      <p class="puzzle-prompt" data-prompt></p>
       <form data-answer-form>
         <label class="puzzle-answer">Your answer <input type="text" inputmode="numeric" pattern="[0-9]+" autocomplete="off" required data-answer></label>
         <div class="puzzle-actions">
@@ -187,7 +188,7 @@
     <div class="page-intro">
       <a class="back-link" href="#puzzles">← All puzzles</a>
       <h1 tabindex="-1">Maze Explorer</h1>
-      <p>Find your way from S (start) to G (goal). Tap a neighboring square, use the direction buttons, or focus the maze and press the arrow keys.</p>
+      <p>Visit every checkpoint in order to unlock the exit. Tap a neighboring square, use the direction buttons, or focus the maze and press the arrow keys.</p>
     </div>
     <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
     <section class="reading-card puzzle-panel maze-panel" aria-label="Play a maze">
@@ -196,6 +197,8 @@
         <div id="maze-board" class="maze-board" tabindex="0" role="group" aria-label="Maze board, use arrow keys to move"></div>
         <div>
           <p class="maze-moves" id="maze-moves">0 moves</p>
+          <p id="maze-checkpoints" class="puzzle-prompt"></p>
+          <p id="maze-par" class="puzzle-prompt"></p>
           <div class="maze-controls" role="group" aria-label="Move through the maze">
             <button class="secondary" type="button" data-maze-move="up" aria-label="Move up">↑</button>
             <button class="secondary" type="button" data-maze-move="left" aria-label="Move left">←</button>
@@ -215,14 +218,17 @@
     <div class="page-intro">
       <a class="back-link" href="#puzzles">← All puzzles</a>
       <h1 tabindex="-1">Pattern Puzzles</h1>
-      <p>Look for the rule that connects the shapes, then choose what comes next.</p>
+      <p>Infer how the examples work, then complete the missing number or board. Grid cells are numbered 1–9 from top left to bottom right.</p>
     </div>
     <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
     <section class="reading-card puzzle-panel" data-quiz="pattern" aria-labelledby="pattern-question">
       <label class="puzzle-picker">Puzzle <select data-pick></select></label>
       <h2 id="pattern-question" data-question tabindex="-1"></h2>
+      <p class="puzzle-prompt" data-prompt></p>
+      <div class="puzzle-figure" data-figure></div>
       <form data-answer-form>
-        <fieldset class="pattern-choices"><legend class="sr-only">Choose the next shape</legend><div data-choices></div></fieldset>
+        <label class="puzzle-answer">Your answer <input type="text" inputmode="numeric" pattern="[0-9]+" autocomplete="off" required data-answer></label>
+        <fieldset class="pattern-choices" hidden><legend>Choose the missing board</legend><div data-choices></div></fieldset>
         <div class="puzzle-actions">
           <button class="primary" type="submit">Check answer</button>
           <button class="secondary" type="button" data-hint-button aria-expanded="false" aria-controls="pattern-hint">Show hint</button>
