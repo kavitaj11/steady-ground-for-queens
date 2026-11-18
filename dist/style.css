@@ -327,3 +327,15 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 .maze-solution-slider input { display: block; width: 100%; accent-color: var(--deep); }
 .maze-methods { margin-top: 16px; }
 .maze-methods p { margin-top: 10px; }
+
+#maze-puzzles[hidden]:target { display: block !important; }
+main:has(> #maze-puzzles[hidden]:target) > #today { display: none; }
+.maze-preview {
+  margin: 0;
+  padding: 10px;
+  background: #fcf8ff;
+  color: #503b79;
+  text-align: center;
+  font: 700 clamp(.8rem, 3.5vw, 1.6rem)/1.05 ui-monospace, monospace;
+  user-select: none;
+}

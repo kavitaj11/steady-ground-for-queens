@@ -49,7 +49,7 @@ for(const target of document.querySelectorAll('[data-reading]')) {
 const views=['today','reflection','books','career','spirituality','motherhood','puzzles','queens-gambits','math-puzzles','maze-puzzles','pattern-puzzles','gita','challenges'];
 const parentViews={career:'today',spirituality:'today',motherhood:'today',puzzles:'reflection','queens-gambits':'reflection','math-puzzles':'reflection','maze-puzzles':'reflection','pattern-puzzles':'reflection',gita:'reflection',challenges:'reflection'};
 function route(focus=false) {
-  const hash=location.hash.slice(1);
+  const hash=location.hash.slice(1) || new URLSearchParams(location.search).get('view');
   if(hash==='main') return;
   const target=$(hash);
   const section=target?.closest('.view');

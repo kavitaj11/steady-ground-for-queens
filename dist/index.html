@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=maze-drag"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js?v=maze-drag"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=maze-visibility"><script type="module" src="app.js?v=maze-visibility"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js?v=maze-visibility"></script><script type="module" src="maze.js"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -190,29 +190,45 @@
       <h1 tabindex="-1">Maze Explorer</h1>
       <p>Drag the purple marker through the corridors without lifting. Visit every checkpoint in order to unlock the exit. You can also tap a neighboring square or use the direction buttons or arrow keys.</p>
     </div>
-    <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
+    <noscript><p>Enable JavaScript to play the maze shown below.</p></noscript>
     <section class="reading-card puzzle-panel maze-panel" aria-label="Play a maze">
-      <label class="puzzle-picker">Maze <select id="maze-pick"></select></label>
+      <label class="puzzle-picker">Maze <select id="maze-pick" disabled><option>The Switchbacks · 15 × 15</option></select></label>
       <div class="maze-play">
-        <div id="maze-board" class="maze-board" tabindex="0" role="group" aria-label="Maze board, use arrow keys to move"></div>
+        <div id="maze-board" class="maze-board" tabindex="0" role="group" aria-label="Maze board, use arrow keys to move"><pre id="maze-preview" class="maze-preview" aria-label="The Switchbacks maze layout">
+■■■■■■■■■■■■■■■
+S·■···········■
+■·■·■·■·■·■·■·■
+■·■·■·■·······■
+■·■·■·■■■■■■■■■
+■·■·■·····■···■
+■·■■■·■·■·■·■·■
+■···■···■·■·■·■
+■■■·■■■■■·■·■·■
+■···■···■A··■·■
+■·■·■·■·■■■■■·■
+■···■·······■·■
+■■■·■·■·■■■·■·■
+■·····■·······G
+■■■■■■■■■■■■■■■
+</pre></div>
         <div>
           <p class="maze-moves" id="maze-moves">0 moves</p>
           <p id="maze-checkpoints" class="puzzle-prompt"></p>
           <p id="maze-par" class="puzzle-prompt"></p>
           <div class="maze-controls" role="group" aria-label="Move through the maze">
-            <button class="secondary" type="button" data-maze-move="up" aria-label="Move up">↑</button>
-            <button class="secondary" type="button" data-maze-move="left" aria-label="Move left">←</button>
-            <button class="secondary" type="button" data-maze-move="down" aria-label="Move down">↓</button>
-            <button class="secondary" type="button" data-maze-move="right" aria-label="Move right">→</button>
+            <button class="secondary" type="button" disabled data-maze-move="up" aria-label="Move up">↑</button>
+            <button class="secondary" type="button" disabled data-maze-move="left" aria-label="Move left">←</button>
+            <button class="secondary" type="button" disabled data-maze-move="down" aria-label="Move down">↓</button>
+            <button class="secondary" type="button" disabled data-maze-move="right" aria-label="Move right">→</button>
           </div>
           <div class="puzzle-actions">
-            <button class="secondary" type="button" id="maze-reset">Restart maze</button>
+            <button class="secondary" type="button" id="maze-reset" disabled>Restart maze</button>
             <button class="primary" type="button" id="maze-next" hidden>Next maze</button>
           </div>
-          <p class="puzzle-message" id="maze-message" role="status"></p>
+          <p class="puzzle-message" id="maze-message" role="status">If the maze controls do not load, refresh the page to play.</p>
         </div>
       </div>
-      <details class="maze-solution" id="maze-solution">
+      <details class="maze-solution" id="maze-solution" hidden>
         <summary>Solution</summary>
         <div class="maze-play maze-solution-content">
           <div id="maze-solution-board" class="maze-board" role="img" aria-label="Shortest route through the selected maze"></div>
