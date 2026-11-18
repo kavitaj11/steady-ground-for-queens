@@ -46,8 +46,8 @@ for(const target of document.querySelectorAll('[data-reading]')) {
   const book=books.find(item=>item.id===target.dataset.reading);
   if(book) target.append(bookLink(book));
 }
-const views=['today','reflection','books','career','spirituality','motherhood','puzzles','gita','challenges'];
-const parentViews={career:'today',spirituality:'today',motherhood:'today',puzzles:'reflection',gita:'reflection',challenges:'reflection'};
+const views=['today','reflection','books','career','spirituality','motherhood','puzzles','queens-gambits','math-puzzles','maze-puzzles','pattern-puzzles','gita','challenges'];
+const parentViews={career:'today',spirituality:'today',motherhood:'today',puzzles:'reflection','queens-gambits':'reflection','math-puzzles':'reflection','maze-puzzles':'reflection','pattern-puzzles':'reflection',gita:'reflection',challenges:'reflection'};
 function route(focus=false) {
   const hash=location.hash.slice(1);
   if(hash==='main') return;

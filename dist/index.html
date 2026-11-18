@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=queens-live-play"><script type="module" src="app.js"></script><script type="module" src="queens.js?v=live-play"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Short guided reflections inspired by Kavita Arjun Jadhav’s books on Vedantic psychology."><meta name="theme-color" content="#faf8fc"><title>Steady Ground for Queens · AI Quality Queens</title><link rel="stylesheet" href="style.css?v=puzzle-gallery"><script type="module" src="app.js?v=puzzle-gallery"></script><script type="module" src="queens.js?v=live-play"></script><script type="module" src="puzzles.js"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
@@ -65,7 +65,7 @@
     <div class="page-intro"><h1 tabindex="-1">Reflections</h1><p>Consider a challenge you’re facing, work through a puzzle, or sit with a teaching from the Bhagavad Gītā.</p></div>
     <nav class="explore-grid reflection-resources" aria-label="Reflection resources">
       <a class="explore-card" href="#challenges"><span class="explore-icon motherhood-icon" aria-hidden="true">◆</span><span><strong>Preparing for Challenges in Life</strong><small>Consider what you can do, what you need, and who can help.</small></span></a>
-      <a class="explore-card" href="#puzzles"><span class="explore-icon career-icon" aria-hidden="true">♕</span><span><strong>Puzzles for Mental Exercise</strong><small>Play 12 chess puzzles in Queens’ Gambits.</small></span></a>
+      <a class="explore-card" href="#puzzles"><span class="explore-icon career-icon" aria-hidden="true">♕</span><span><strong>Puzzles for Mental Exercise</strong><small>Choose from chess, math, mazes, and pattern puzzles.</small></span></a>
       <a class="explore-card" href="#gita"><span class="explore-icon spirituality-icon" aria-hidden="true">✧</span><span><strong>Decoded Gita Wisdom</strong><small>Explore all 18 chapters through diagnosis, correction, and stabilization.</small></span></a>
     </nav>
   </section>
@@ -87,8 +87,33 @@
     </div>
   </section>
   <section id="puzzles" class="view" hidden>
-    <div class="page-intro queens-intro">
+    <div class="page-intro">
       <a class="back-link" href="#reflection">← Reflections</a>
+      <h1 tabindex="-1">Puzzles for Mental Exercise</h1>
+      <p>Choose a puzzle to play at your own pace.</p>
+    </div>
+    <nav class="puzzle-gallery" aria-label="Choose a puzzle">
+      <a class="puzzle-card" href="#queens-gambits">
+        <span class="puzzle-art puzzle-art-chess" aria-hidden="true">♛</span>
+        <span class="puzzle-card-copy"><strong>Queens’ Gambits</strong><small>Play 12 chess positions and learn how the queen wins with support.</small><span class="puzzle-play-link">Play chess <span aria-hidden="true">→</span></span></span>
+      </a>
+      <a class="puzzle-card" href="#math-puzzles">
+        <span class="puzzle-art puzzle-art-math" aria-hidden="true">+</span>
+        <span class="puzzle-card-copy"><strong>Math Puzzles</strong><small>Solve four number challenges using arithmetic and deduction.</small><span class="puzzle-play-link">Solve math puzzles <span aria-hidden="true">→</span></span></span>
+      </a>
+      <a class="puzzle-card" href="#maze-puzzles">
+        <span class="puzzle-art puzzle-art-maze" aria-hidden="true">↱</span>
+        <span class="puzzle-card-copy"><strong>Maze Explorer</strong><small>Find a route through three mazes, from an easy trail to a longer labyrinth.</small><span class="puzzle-play-link">Explore mazes <span aria-hidden="true">→</span></span></span>
+      </a>
+      <a class="puzzle-card" href="#pattern-puzzles">
+        <span class="puzzle-art puzzle-art-pattern" aria-hidden="true">◆ ◇ ◆</span>
+        <span class="puzzle-card-copy"><strong>Pattern Puzzles</strong><small>Predict the next shape in four visual sequences.</small><span class="puzzle-play-link">Find the pattern <span aria-hidden="true">→</span></span></span>
+      </a>
+    </nav>
+  </section>
+  <section id="queens-gambits" class="view" hidden>
+    <div class="page-intro">
+      <a class="back-link" href="#puzzles">← All puzzles</a>
       <h1 tabindex="-1">Queens’ Gambits</h1>
       <p>12 chess puzzles from AI Quality Queens. Learn how the queen works with the rest of the board, one move at a time.</p>
     </div>
@@ -134,6 +159,78 @@
     <section class="reading-card queens-creators" aria-labelledby="queens-creator-heading">
       <h2 id="queens-creator-heading">How women could earn through Queens’ Gambits</h2>
       <p>The 12-puzzle starter pack is free. For future themed packs, the plan is to pay women chess coaches and puzzle authors to compose and review puzzles, then share revenue from advanced pack sales with their creators. Paid live puzzle-solving workshops could give coaches another way to earn.</p>
+    </section>
+  </section>
+  <section id="math-puzzles" class="view" hidden>
+    <div class="page-intro">
+      <a class="back-link" href="#puzzles">← All puzzles</a>
+      <h1 tabindex="-1">Math Puzzles</h1>
+      <p>Work out the number, then check your reasoning.</p>
+    </div>
+    <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
+    <section class="reading-card puzzle-panel" data-quiz="math" aria-labelledby="math-question">
+      <label class="puzzle-picker">Puzzle <select data-pick></select></label>
+      <h2 id="math-question" data-question tabindex="-1"></h2>
+      <form data-answer-form>
+        <label class="puzzle-answer">Your answer <input type="text" inputmode="numeric" pattern="[0-9]+" autocomplete="off" required data-answer></label>
+        <div class="puzzle-actions">
+          <button class="primary" type="submit">Check answer</button>
+          <button class="secondary" type="button" data-hint-button aria-expanded="false" aria-controls="math-hint">Show hint</button>
+          <button class="secondary" type="button" data-next hidden>Next puzzle</button>
+        </div>
+      </form>
+      <p class="puzzle-message" id="math-hint" data-hint role="status" hidden></p>
+      <p class="puzzle-message" data-feedback role="status"></p>
+    </section>
+  </section>
+  <section id="maze-puzzles" class="view" hidden>
+    <div class="page-intro">
+      <a class="back-link" href="#puzzles">← All puzzles</a>
+      <h1 tabindex="-1">Maze Explorer</h1>
+      <p>Find your way from S (start) to G (goal). Tap a neighboring square, use the direction buttons, or focus the maze and press the arrow keys.</p>
+    </div>
+    <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
+    <section class="reading-card puzzle-panel maze-panel" aria-label="Play a maze">
+      <label class="puzzle-picker">Maze <select id="maze-pick"></select></label>
+      <div class="maze-play">
+        <div id="maze-board" class="maze-board" tabindex="0" role="group" aria-label="Maze board, use arrow keys to move"></div>
+        <div>
+          <p class="maze-moves" id="maze-moves">0 moves</p>
+          <div class="maze-controls" role="group" aria-label="Move through the maze">
+            <button class="secondary" type="button" data-maze-move="up" aria-label="Move up">↑</button>
+            <button class="secondary" type="button" data-maze-move="left" aria-label="Move left">←</button>
+            <button class="secondary" type="button" data-maze-move="down" aria-label="Move down">↓</button>
+            <button class="secondary" type="button" data-maze-move="right" aria-label="Move right">→</button>
+          </div>
+          <div class="puzzle-actions">
+            <button class="secondary" type="button" id="maze-reset">Restart maze</button>
+            <button class="primary" type="button" id="maze-next" hidden>Next maze</button>
+          </div>
+          <p class="puzzle-message" id="maze-message" role="status"></p>
+        </div>
+      </div>
+    </section>
+  </section>
+  <section id="pattern-puzzles" class="view" hidden>
+    <div class="page-intro">
+      <a class="back-link" href="#puzzles">← All puzzles</a>
+      <h1 tabindex="-1">Pattern Puzzles</h1>
+      <p>Look for the rule that connects the shapes, then choose what comes next.</p>
+    </div>
+    <noscript><p>Enable JavaScript to play the interactive puzzles.</p></noscript>
+    <section class="reading-card puzzle-panel" data-quiz="pattern" aria-labelledby="pattern-question">
+      <label class="puzzle-picker">Puzzle <select data-pick></select></label>
+      <h2 id="pattern-question" data-question tabindex="-1"></h2>
+      <form data-answer-form>
+        <fieldset class="pattern-choices"><legend class="sr-only">Choose the next shape</legend><div data-choices></div></fieldset>
+        <div class="puzzle-actions">
+          <button class="primary" type="submit">Check answer</button>
+          <button class="secondary" type="button" data-hint-button aria-expanded="false" aria-controls="pattern-hint">Show hint</button>
+          <button class="secondary" type="button" data-next hidden>Next puzzle</button>
+        </div>
+      </form>
+      <p class="puzzle-message" id="pattern-hint" data-hint role="status" hidden></p>
+      <p class="puzzle-message" data-feedback role="status"></p>
     </section>
   </section>
   <section id="gita" class="view" hidden>

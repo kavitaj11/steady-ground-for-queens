@@ -121,3 +121,138 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:min(5
 .board-square.dragging-source .chess-piece{opacity:.23}
 .chess-ghost{position:fixed;z-index:20;transform:translate(-50%,-50%);pointer-events:none}
 .board-square.legal:not(.occupied){cursor:pointer}
+
+.puzzle-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.puzzle-card {
+  display: flex;
+  align-items: stretch;
+  min-height: 158px;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.puzzle-card:hover {
+  border-color: #aa91c2;
+  background: #fcf9ff;
+}
+.puzzle-art {
+  display: grid;
+  place-items: center;
+  flex: 0 0 clamp(66px, 14vw, 130px);
+  margin: 9px;
+  border-radius: 12px;
+  font: 3.1rem/1 Georgia, serif;
+}
+.puzzle-art-chess { color: #503b79; background: #ede5f7; }
+.puzzle-art-math { color: #784a25; background: #f8eddd; }
+.puzzle-art-maze { color: #315c50; background: #e5f1eb; }
+.puzzle-art-pattern { color: #814362; background: #f6e7ed; font-size: clamp(.8rem, 3vw, 1.4rem); }
+.puzzle-card-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 16px 16px 16px 5px;
+}
+.puzzle-card-copy strong { font: 1.5rem/1.16 Georgia, serif; }
+.puzzle-card-copy small { color: var(--muted); line-height: 1.45; margin: 5px 0 12px; }
+.puzzle-play-link { margin-top: auto; font-weight: 700; color: var(--deep); font-size: .88rem; }
+.puzzle-panel { max-width: 760px; }
+.puzzle-panel h2 { font-size: clamp(1.35rem, 3.8vw, 1.8rem); line-height: 1.25; }
+.puzzle-picker, .puzzle-answer { display: block; font-weight: 650; font-size: .88rem; }
+.puzzle-picker { margin-bottom: 16px; }
+.puzzle-picker select, .puzzle-answer input {
+  display: block;
+  max-width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid #aa91c2;
+  border-radius: 8px;
+  color: var(--ink);
+  background: #fbf8fd;
+  font: inherit;
+}
+.puzzle-answer input { width: 9rem; }
+.puzzle-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.puzzle-panel [data-answer-form] { margin-top: 12px; }
+.puzzle-panel .puzzle-message:not(:empty) { margin-top: 12px; color: var(--deep); }
+.pattern-sequence, .pattern-choices > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.pattern-sequence { margin-top: 10px; }
+.pattern-sequence > span, .pattern-choices label {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f6eff9;
+  color: var(--deep);
+  font: 650 .9rem/1.4 system-ui, sans-serif;
+}
+.pattern-sequence > span { min-width: 28px; text-align: center; }
+.pattern-choices label { display: inline-flex; align-items: center; gap: 5px; min-height: 38px; cursor: pointer; }
+.pattern-choices input { accent-color: var(--deep); }
+.maze-play {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+.maze-board {
+  display: grid;
+  grid-template-columns: repeat(var(--maze-size), minmax(0, 1fr));
+  width: 100%;
+  max-width: 380px;
+  padding: 2px;
+  border: 2px solid #503b79;
+  border-radius: 8px;
+  background: #503b79;
+}
+.maze-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 1px solid #e8dcef;
+  background: #fcf8ff;
+  color: #382453;
+  font-size: clamp(.68rem, 2.8vw, 1rem);
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+.maze-cell.maze-wall { border-color: #503b79; background: #503b79; cursor: default; }
+.maze-cell.maze-visited { background: #e6d8f1; }
+.maze-cell.maze-goal { background: #d7eee1; color: #244f41; }
+.maze-player::after {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: #714694;
+  border: 2px solid #fff;
+  content: '';
+}
+.maze-moves { font-weight: 700; }
+.maze-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  gap: 5px;
+  margin-top: 12px;
+}
+.maze-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+.maze-controls [data-maze-move="up"] { grid-column: 2; }
+.maze-controls [data-maze-move="left"] { grid-column: 1; }
+@media (max-width: 600px) {
+  .puzzle-gallery, .maze-play { grid-template-columns: 1fr; }
+  .puzzle-card { min-height: 134px; }
+}
