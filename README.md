@@ -8,7 +8,12 @@ What do you do when a decision feels tangled, the demands at home are piling up,
 
 [**Archive and citation for v1.0.0**](https://doi.org/10.5281/zenodo.24403098)
 
-![Lavender foothills at dawn, the landscape from the app’s home page](dist/landscape.webp)
+<table>
+  <tr>
+    <td><a href="https://kavitaj11.github.io/steady-ground-for-queens/"><img src="dist/landscape.webp" alt="Lavender foothills at dawn" width="650"></a></td>
+    <td><a href="https://github.com/kavitaj11/ai-quality-queens"><img src="dist/aiqq-logo.webp" alt="AI Quality Queens" width="104"></a></td>
+  </tr>
+</table>
 
 ## Where to start
 

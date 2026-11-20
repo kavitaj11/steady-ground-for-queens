@@ -339,3 +339,12 @@ main:has(> #maze-puzzles[hidden]:target) > #today { display: none; }
   font: 700 clamp(.8rem, 3.5vw, 1.6rem)/1.05 ui-monospace, monospace;
   user-select: none;
 }
+
+.hero-aiqq-logo {
+  position: absolute;
+  inset: auto clamp(14px, 3vw, 26px) clamp(14px, 3vw, 26px) auto;
+  width: clamp(68px, 11vw, 112px);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px #38245336;
+}
