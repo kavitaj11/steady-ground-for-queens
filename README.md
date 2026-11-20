@@ -6,6 +6,8 @@ What do you do when a decision feels tangled, the demands at home are piling up,
 
 [**Open Steady Ground for Queens on GitHub Pages**](https://kavitaj11.github.io/steady-ground-for-queens/)
 
+[**Archive and citation for v1.0.0**](https://doi.org/10.5281/zenodo.24403098)
+
 ![Lavender foothills at dawn, the landscape from the app’s home page](dist/landscape.webp)
 
 ## Where to start
@@ -22,6 +24,10 @@ What do you do when a decision feels tangled, the demands at home are piling up,
 ### Try a puzzle
 
 In [Queens’ Gambits](https://kavitaj11.github.io/steady-ground-for-queens/#queens-gambits), play through 12 chess positions and see why the queen’s chase, fork, or sacrifice works. In [Maze Explorer](https://kavitaj11.github.io/steady-ground-for-queens/#maze-puzzles), drag the marker through ordered checkpoints, then compare your path with a step-by-step shortest route.
+
+## Cite this release
+
+Jadhav, K. (2026). *Steady Ground for Queens* (v1.0.0) [Software]. Zenodo. [DOI 10.5281/zenodo.24403098](https://doi.org/10.5281/zenodo.24403098).
 
 ## Run locally
 
